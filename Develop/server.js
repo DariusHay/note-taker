@@ -3,15 +3,16 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const path = require('path');
 const fs = require('fs')
-const notes = require('./db/db.json');
+let notes = require('./db/db.json');
 const uuidv1 = require("uuidv1");
+const Notes = require('./db/notes.js');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
 
-app.get('/api/notes', (req, res) => {res.json(notes)});
+
 
 
 app.post('/api/notes', (req, res) => {
@@ -30,15 +31,26 @@ app.post('/api/notes', (req, res) => {
 
 
 
-app.delete("/api/notes/:id", (req, res) => {
-  // console.log(notes)
-  let temp = notes.filter((n) => n.id !== req.params.id);
+// app.delete("/api/notes/:id", (req, res) => {
+//   console.log(notes)
+//   let temp = notes.filter((n) => n.id !== req.params.id);
 
-fs.writeFileSync("./db/db.json", JSON.stringify(temp),"utf-8");
-res.json(temp);
-console.log(temp);
+// fs.writeFileSync("./db/db.json", JSON.stringify(temp),"utf-8");
+// res.json(temp);
+// console.log(temp);
+// // const { id } = req.params;
+// // const deleted = notes.find(note => note.id === id);
+// // if(deleted) {
+// //   notes = notes.filter(note !== note.id === id)
+// // } else {
+// //   return
+// // }
+// });
+app.delete('/api/notes/:id', (req, res) => {
+  Notes.deleteNote(req.params.id).then(() => res.json(notes))
 });
 
+app.get('/api/notes', (req, res) => {res.json(notes)});
 app.get('/', (req, res) => {res.sendFile(path.join(__dirname, "./public/index.html"));});
 app.get('/notes', (req, res) => {res.sendFile(path.join(__dirname, "./public/notes.html"));});
 
