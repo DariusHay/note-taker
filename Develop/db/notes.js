@@ -27,6 +27,7 @@ class Notes{
         return this.read().then(rawNotes => {
             let notesArr = [];
             try {
+                
                 notesArr = notesArr.concat(JSON.parse(rawNotes))
             } catch (error) {
                 notesArr = [];
@@ -35,8 +36,10 @@ class Notes{
         })
     }
     deleteNote(id){
-        return this.getNotes().then(notesArr => notesArr.filter(note => note.id !== id)).then(updatedArr => this.write(updatedArr))
+        return this.getNotes()
+        .then((notesArr) => notesArr.filter((note) => note.id !== id))
+        .then((updatedArr) => this.write(updatedArr))
     }
 }
 
-module.exports = new Notes();
+module.exports = Notes;
