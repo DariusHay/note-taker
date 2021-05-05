@@ -28,9 +28,9 @@ Back-End done by Darius Hay https://github.com/DariusHay
 
 ## Screenshots
 
-![home](assets/pics/home.png)
-![note-page](assets/pics/note-page.png)
-![note](assets/pics/note.png)
+![home](Develop/public/assets/pic/home.png)
+![note-page](Develop/public/assets/pic/note-page.png)
+![note](Develop/public/assets/pic/note.png)
 
 ## Questions
 
